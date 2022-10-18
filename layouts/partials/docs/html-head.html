@@ -12,9 +12,15 @@
 
 <title>{{ partial "docs/html-head-title" . }}</title>
 
-{{- $manifest := resources.Get "manifest.json" | resources.ExecuteAsTemplate "manifest.json" . }}
-<link rel="manifest" href="{{ $manifest.RelPermalink }}">
+{{/*  {{- $manifest := resources.Get "manifest.json" | resources.ExecuteAsTemplate "manifest.json" . }}
+<link rel="manifest" href="{{ $manifest.RelPermalink }}">  */}}
+
+{{ if .Site.Params.favicon }}
+<link rel="icon" type="image/x-icon" href='{{ .Site.Params.favicon  }}'>
+{{ else }}
 <link rel="icon" href="{{ "favicon.png" | relURL }}" type="image/x-icon">
+{{ end }}
+
 
 {{- range .Translations }}
   <link rel="alternate" hreflang="{{ default .Language.Lang .Site.LanguageCode }}" href="{{ .Permalink }}" title="{{ partial "docs/title" . }}">
